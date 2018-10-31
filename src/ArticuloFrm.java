@@ -33,7 +33,7 @@ public class ArticuloFrm extends javax.swing.JFrame {
     
     //Se cargan las columnas a la tabla Artículo
     private String[] getColumn(){
-        String columnas[] = new String[]{"id_articulo", "id_tpArticulo", "cantidad", "precio", "estado"};
+        String columnas[] = new String[]{"id_articulo", "Tipo Artículo", "Cantidad", "Precio", "Estado"};
         return columnas;
     }   
     
@@ -88,28 +88,29 @@ public class ArticuloFrm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("ARTICULO");
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel1.setText("ARTÍCULOS");
 
         cboEstado.setModel(modeloComboEstado);
 
-        jLabel3.setText("id_tpArticulo");
+        jLabel3.setText("Tipo Artículo");
 
         jScrollPane2.setViewportView(txtid_tpArticulo);
 
-        jLabel4.setText("cantidad");
+        jLabel4.setText("Cantidad");
 
         jScrollPane3.setViewportView(txtcantidad);
 
-        jLabel5.setText("precio");
+        jLabel5.setText("Precio");
 
         jScrollPane4.setViewportView(txtprecio);
 
         jLabel2.setText("id_articulo");
 
+        txtIdArticulo.setText("0");
         jScrollPane1.setViewportView(txtIdArticulo);
 
-        jLabel6.setText("estado");
+        jLabel6.setText("Estado");
 
         btnGuardar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnGuardar.setText("GUARDAR");
@@ -136,7 +137,7 @@ public class ArticuloFrm extends javax.swing.JFrame {
         });
 
         btnSalir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnSalir.setText("VOLVER AL MENU");
+        btnSalir.setText("ATRÁS");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -158,46 +159,39 @@ public class ArticuloFrm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(95, 95, 95)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(jScrollPane2)
+                                    .addComponent(jScrollPane3)
+                                    .addComponent(jScrollPane4)
+                                    .addComponent(cboEstado, 0, 140, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnSalir)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnGuardar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnActualizar)))
+                                .addComponent(btnGuardar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEliminar)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE))
+                                .addComponent(btnEliminar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSalir))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnActualizar)))
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,63 +199,84 @@ public class ArticuloFrm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6))
+                                .addGap(25, 25, 25)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnGuardar)
+                                    .addComponent(btnEliminar)
+                                    .addComponent(btnSalir)))
+                            .addComponent(jLabel5)))
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnActualizar)
-                    .addComponent(btnEliminar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSalir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnActualizar))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(12, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
+        jLabel1.getAccessibleContext().setAccessibleName("ARTÍCULOS");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
        Articulo art = new Articulo();
-       boolean resultado = art.insertarArticulo(Integer.parseInt(txtIdArticulo.getText()), Integer.parseInt(txtid_tpArticulo.getText()), Integer.parseInt(txtcantidad.getText()), Integer.parseInt(txtprecio.getText()), cboEstado.getSelectedItem().toString());
-       if(resultado==true){
-           JOptionPane.showMessageDialog(null, "Se inserto el articulo");
-           this.modeloTabla.getDataVector().clear();
-           cargarTabla();
+       
+       int idTpArticulo=Integer.parseInt(txtid_tpArticulo.getText());
+       int cantidad=Integer.parseInt(txtcantidad.getText());
+       int precio=Integer.parseInt(txtprecio.getText());
+       String estado=cboEstado.getSelectedItem().toString();
+       int id =Integer.parseInt(txtIdArticulo.getText());
+       if(id==0){
+            boolean resultado = art.insertarArticulo(id, idTpArticulo, cantidad, precio, estado);
+            if(resultado==true){
+                JOptionPane.showMessageDialog(null, "Se insertó el artículo!");
+                this.modeloTabla.getDataVector().clear();
+                cargarTabla();
+            }else{
+                JOptionPane.showMessageDialog(null, "No se insertó el artículo");
+            }
        }else{
-           JOptionPane.showMessageDialog(null, "No se inserto el articulo");
-       }
+            boolean resultado = art.actualizarArticulo(id, idTpArticulo, cantidad, precio, estado);
+            if(resultado==true){
+               JOptionPane.showMessageDialog(null, "Se actualizó el artículo!");
+               this.modeloTabla.getDataVector().clear();
+               cargarTabla();
+           }else{
+               JOptionPane.showMessageDialog(null, "No se actualizó el artículo");
+           }
+           }
+      
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         Articulo art = new Articulo();
         boolean resultado = art.actualizarArticulo(Integer.parseInt(txtIdArticulo.getText()), Integer.parseInt(txtid_tpArticulo.getText()), Integer.parseInt(txtcantidad.getText()), Integer.parseInt(txtprecio.getText()), cboEstado.getSelectedItem().toString());
         if(resultado==true){
-           JOptionPane.showMessageDialog(null, "Se actualizo el articulo");
+           JOptionPane.showMessageDialog(null, "Se actualizó el artículo!");
            this.modeloTabla.getDataVector().clear();
            cargarTabla();
        }else{
-           JOptionPane.showMessageDialog(null, "No se actualizo el articulo");
+           JOptionPane.showMessageDialog(null, "No se actualizó el artículo");
        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
@@ -269,11 +284,11 @@ public class ArticuloFrm extends javax.swing.JFrame {
         Articulo art = new Articulo();
         boolean resultado = art.eliminarArticulo(Integer.parseInt(txtIdArticulo.getText()));
         if(resultado==true){
-           JOptionPane.showMessageDialog(null, "Se elimino el articulo");
+           JOptionPane.showMessageDialog(null, "Se eliminó el artículo");
            this.modeloTabla.getDataVector().clear();
           cargarTabla();          
        }else{
-           JOptionPane.showMessageDialog(null, "No se elimino el articulo");
+           JOptionPane.showMessageDialog(null, "No se eliminó el artículo");
        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 

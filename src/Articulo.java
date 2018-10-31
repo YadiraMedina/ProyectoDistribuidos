@@ -15,8 +15,8 @@ public class Articulo extends ArticuloApp.ArticuloPOA{
         
         boolean resultado = false;
         try {
-            String query = "Insert into articulo(id_articulo,id_tpArticulo,cantidad,precio,estado)"
-                    + "values ('"+id_articulo+"','"+id_tpArticulo+"','"+cantidad+"','"+precio+"','"+estado+"')";
+            String query = "Insert into articulo(id_tpArticulo,cantidad,precio,estado)"
+                    + "values ("+id_tpArticulo+","+cantidad+","+precio+",'"+estado+"')";
             conex.conexion();
             Statement st = conex.conex.createStatement();
             int valor = st.executeUpdate(query);
@@ -57,8 +57,8 @@ public class Articulo extends ArticuloApp.ArticuloPOA{
     public boolean actualizarArticulo(int id_articulo, int id_tpArticulo, int cantidad, int precio, String estado) {
         boolean resultado = false;
         try {
-            String query = "Update articulo set id_tpArticulo='"+id_tpArticulo+"',cantidad='"+cantidad+"',precio='"+precio+"',estado='"+estado+"'"
-                    + " where id_articulo='"+id_articulo+"'";
+            String query = "Update articulo set id_tpArticulo="+id_tpArticulo+",cantidad="+cantidad+",precio="+precio+",estado='"+estado+"'"
+                    + " where id_articulo="+id_articulo+"";
             conex.conexion();
             Statement st = conex.conex.createStatement();
             int valor = st.executeUpdate(query);
