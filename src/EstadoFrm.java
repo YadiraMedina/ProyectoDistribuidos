@@ -68,10 +68,11 @@ public class EstadoFrm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("ESTADO");
+        jLabel1.setText("ESTADOS");
 
         jScrollPane2.setViewportView(txtNombre);
 
+        txtId.setText("0");
         jScrollPane1.setViewportView(txtId);
 
         btnGuardar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -91,7 +92,7 @@ public class EstadoFrm extends javax.swing.JFrame {
         });
 
         btnSalir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnSalir.setText("VOLVER AL MENU");
+        btnSalir.setText("ATRÁS");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -129,27 +130,25 @@ public class EstadoFrm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(45, 45, 45)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane1))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnSalir)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnGuardar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnActualizar)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEliminar))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnGuardar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnEliminar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSalir))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(113, 113, 113)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnActualizar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -173,10 +172,10 @@ public class EstadoFrm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardar)
-                            .addComponent(btnActualizar)
-                            .addComponent(btnEliminar))
+                            .addComponent(btnEliminar)
+                            .addComponent(btnSalir))
                         .addGap(18, 18, 18)
-                        .addComponent(btnSalir)
+                        .addComponent(btnActualizar)
                         .addGap(0, 12, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -186,26 +185,41 @@ public class EstadoFrm extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         Estado per = new Estado();
-        boolean resultado = per.insertarEstado(Integer.parseInt(txtId.getText()), txtNombre.getText());
-        if(resultado==true){
-            JOptionPane.showMessageDialog(null, "Se inserto el registro");
-            this.modeloTabla.getDataVector().clear();
-            cargarTabla();
+        int id =Integer.parseInt(txtId.getText());
+        String Nombre=txtNombre.getText();
+        
+        if(id==0){
+            boolean resultado = per.insertarEstado(Integer.parseInt(txtId.getText()), Nombre);
+            if(resultado==true){
+                JOptionPane.showMessageDialog(null, "Se insertó el registro");
+                this.modeloTabla.getDataVector().clear();
+                cargarTabla();
+            }else{
+                JOptionPane.showMessageDialog(null, "No se insertó el registro");
+            }
         }else{
-            JOptionPane.showMessageDialog(null, "No se inserto el registro");
+            boolean resultado = per.actualizarEstado(id, Nombre);
+            if(resultado==true){
+                JOptionPane.showMessageDialog(null, "Se actualizó el registro");
+                this.modeloTabla.getDataVector().clear();
+                cargarTabla();
+            }else{
+                JOptionPane.showMessageDialog(null, "No se actualizó el registro");
+            }
         }
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        Estado per = new Estado();
-        boolean resultado = per.actualizarEstado(Integer.parseInt(txtId.getText()), txtNombre.getText());
-        if(resultado==true){
-            JOptionPane.showMessageDialog(null, "Se actualizo el registro");
-            this.modeloTabla.getDataVector().clear();
-            cargarTabla();
-        }else{
-            JOptionPane.showMessageDialog(null, "No se actualizo el registro");
-        }
+//        Estado per = new Estado();
+//        boolean resultado = per.actualizarEstado(Integer.parseInt(txtId.getText()), txtNombre.getText());
+//        if(resultado==true){
+//            JOptionPane.showMessageDialog(null, "Se actualizo el registro");
+//            this.modeloTabla.getDataVector().clear();
+//            cargarTabla();
+//        }else{
+//            JOptionPane.showMessageDialog(null, "No se actualizo el registro");
+//        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

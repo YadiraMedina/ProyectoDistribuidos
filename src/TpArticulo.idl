@@ -1,0 +1,9 @@
+module TpArticuloApp{
+    interface TpArticulo{
+        boolean insertarTpArticulo(in long id, in wstring nombre);
+        boolean eliminarTpArticulo(in long id);
+        boolean actualizarTpArticulo(in long id, in wstring nombre);
+        oneway void shutdown();
+    };
+
+};

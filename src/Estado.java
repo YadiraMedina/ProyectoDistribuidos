@@ -14,8 +14,8 @@ public class Estado extends EstadoApp.EstadoPOA{
     public boolean insertarEstado(int id_estado, String nombre) {
         boolean resultado = false;
         try {
-            String query = "Insert into estado(id_estado,nombre)"
-                    + "values ('"+id_estado+"','"+nombre+"')";
+            String query = "Insert into estado(nombre)"
+                    + "values ('"+nombre+"')";
             conex.conexion();
             Statement st = conex.conex.createStatement();
             int valor = st.executeUpdate(query);
@@ -56,7 +56,7 @@ public class Estado extends EstadoApp.EstadoPOA{
         boolean resultado = false;
         try {
             String query = "Update estado set nombre='"+nombre+"'"
-                    + " where id_estado='"+id_estado+"'";
+                    + " where id_estado="+id_estado+"";
             conex.conexion();
             Statement st = conex.conex.createStatement();
             int valor = st.executeUpdate(query);
