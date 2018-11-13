@@ -92,6 +92,11 @@ public class ArticuloFrm extends javax.swing.JFrame {
         jLabel1.setText("ARTÍCULOS");
 
         cboEstado.setModel(modeloComboEstado);
+        cboEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboEstadoActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Tipo Artículo");
 
@@ -233,8 +238,6 @@ public class ArticuloFrm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel1.getAccessibleContext().setAccessibleName("ARTÍCULOS");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -306,6 +309,10 @@ public class ArticuloFrm extends javax.swing.JFrame {
         txtprecio.setText(String.valueOf(jtArticulo.getValueAt(selection, 3)));
         modeloComboEstado.setSelectedItem(String.valueOf(jtArticulo.getValueAt(selection, 4)));
     }//GEN-LAST:event_jtArticuloMouseClicked
+
+    private void cboEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboEstadoActionPerformed
+      
+    }//GEN-LAST:event_cboEstadoActionPerformed
 
     /**
      * @param args the command line arguments

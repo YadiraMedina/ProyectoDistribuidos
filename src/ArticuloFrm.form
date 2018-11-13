@@ -131,9 +131,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="ART&#xcd;CULOS"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="ART&#xcd;CULOS"/>
-      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JComboBox" name="cboEstado">
       <Properties>
@@ -141,6 +138,9 @@
           <Connection code="modeloComboEstado" type="code"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboEstadoActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>

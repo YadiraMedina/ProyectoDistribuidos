@@ -1,8 +1,8 @@
 module VentasApp{
     interface Ventas{
-        boolean insertarVentas(in long id_ventas, in long id_tpArticulo, in long cantidad, in long precio, in wstring estado);
-        boolean eliminarVentas(in long id_articulo);
-        boolean actualizarVentas(in long id_articulo, in long id_tpArticulo, in long cantidad, in long precio, in wstring estado);
+        boolean insertarVentas(in long id_venta, in long cantidad, in long valor_total);
+        boolean eliminarVentas(in long id_venta);
+        boolean actualizarVentas(in long id_venta, in long cantidad, in long valor_total);
         oneway void shutdown();
     };
 
