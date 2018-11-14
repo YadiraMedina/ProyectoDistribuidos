@@ -1,8 +1,8 @@
 module ArticuloApp{
     interface Articulo{
-        boolean insertarArticulo(in long id_articulo, in long id_tpArticulo, in long cantidad, in long precio, in wstring estado);
+        boolean insertarArticulo(in long id_tpArticulo, in long cantidad, in long precio, in wstring estado, in wstring nombre);
         boolean eliminarArticulo(in long id_articulo);
-        boolean actualizarArticulo(in long id_articulo, in long id_tpArticulo, in long cantidad, in long precio, in wstring estado);
+        boolean actualizarArticulo(in long id_articulo, in long id_tpArticulo, in long cantidad, in long precio, in wstring estado, in wstring nombre);
         oneway void shutdown();
     };
 

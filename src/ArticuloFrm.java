@@ -7,19 +7,33 @@ import javax.swing.table.DefaultTableModel;
 public class ArticuloFrm extends javax.swing.JFrame {
 
     //Atributo para cargar el combo
-    private DefaultComboBoxModel modeloComboEstado;
-    private DefaultTableModel modeloTabla;
+       private DefaultTableModel modeloTabla;
+       private DefaultComboBoxModel modeloComboEstado;
+       private DefaultComboBoxModel modeloComboTpArt;
     
     public ArticuloFrm() {
         
         modeloComboEstado = new DefaultComboBoxModel(new String [] {});
+        modeloComboTpArt = new DefaultComboBoxModel(new String [] {});
         modeloTabla = new DefaultTableModel(null, getColumn());
         
         initComponents();
         cargarTabla();
         
-        Articulo objArticulo = new Articulo();
+        cargarCboTpArticulo();
+        cargarCboEstados();
+    }
+    
+    //Se cargan las columnas a la tabla Artículo
+    private String[] getColumn(){
+        String columnas[] = new String[]{"id_articulo", "Tipo Artículo", "Nombre", "Cantidad", "Precio", "Estado"};
+        return columnas;
+    }   
+    
+    // CARGAR COMBOS
+    private void cargarCboEstados(){
         ResultSet estados;
+        Articulo objArticulo = new Articulo();
         estados = objArticulo.listaEstados(); 
         try {
             while(estados.next()){
@@ -28,23 +42,45 @@ public class ArticuloFrm extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, "Ocurrio un error: " + e.getMessage());
         }
+     }
+    
+    private void cargarCboTpArticulo(){
+        ResultSet tpArticulo;
+        Articulo objArticulo = new Articulo();
+        tpArticulo = objArticulo.listaTpArticulo(); 
+        try {
+            while(tpArticulo.next()){
+               modeloComboTpArt.addElement(new estadoArticulo(tpArticulo.getInt("id"), tpArticulo.getString("nombre")));
+            }
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, "Ocurrio un error: " + e.getMessage());
+        }
+     }
+    
+    private void cargarCboTpArticuloxId(int id){
+        ResultSet tpArticulo;
+        Articulo objArticulo = new Articulo();
+        tpArticulo = objArticulo.listaTpArticuloxId(id); 
         
-    }
-    
-    //Se cargan las columnas a la tabla Artículo
-    private String[] getColumn(){
-        String columnas[] = new String[]{"id_articulo", "Tipo Artículo", "Cantidad", "Precio", "Estado"};
-        return columnas;
-    }   
-    
+       
+        try {
+            while(tpArticulo.next()){
+               //modeloComboTpArt.addElement(new estadoArticulo(tpArticulo.getInt("id"), tpArticulo.getString("nombre")));
+               cboTpArt.setSelectedIndex(tpArticulo.getInt("id")-1);
+               cboTpArt.setSelectedItem(tpArticulo.getString("nombre"));
+            }
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, "Ocurrio un error: " + e.getMessage());
+        }
+     }
     //Metodo para cargar la tabla
     private void cargarTabla(){
         Articulo objArticulo = new Articulo();
         ResultSet resultado = objArticulo.cargarTablaArticulo();
         try {
-            Object datos[] = new Object[5];
+            Object datos[] = new Object[6];
             while (resultado.next()){
-                for(int i=0; i<5; i++){
+                for(int i=0; i<6; i++){
                     datos[i] = resultado.getObject(i+1);
                 }
                 modeloTabla.addRow(datos);
@@ -67,8 +103,6 @@ public class ArticuloFrm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         cboEstado = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtid_tpArticulo = new javax.swing.JTextPane();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtcantidad = new javax.swing.JTextPane();
@@ -80,11 +114,14 @@ public class ArticuloFrm extends javax.swing.JFrame {
         txtIdArticulo = new javax.swing.JTextPane();
         jLabel6 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         jtArticulo = new javax.swing.JTable();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        txtNomArt = new javax.swing.JTextPane();
+        cboTpArt = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,8 +136,6 @@ public class ArticuloFrm extends javax.swing.JFrame {
         });
 
         jLabel3.setText("Tipo Artículo");
-
-        jScrollPane2.setViewportView(txtid_tpArticulo);
 
         jLabel4.setText("Cantidad");
 
@@ -122,14 +157,6 @@ public class ArticuloFrm extends javax.swing.JFrame {
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
-            }
-        });
-
-        btnActualizar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        btnActualizar.setText("ACTUALIZAR");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
             }
         });
 
@@ -157,6 +184,17 @@ public class ArticuloFrm extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(jtArticulo);
 
+        jScrollPane6.setViewportView(txtNomArt);
+
+        cboTpArt.setModel(modeloComboTpArt);
+        cboTpArt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTpArtActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Nombre");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -164,36 +202,40 @@ public class ArticuloFrm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(95, 95, 95)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jScrollPane1)
-                                    .addComponent(jScrollPane2)
-                                    .addComponent(jScrollPane3)
-                                    .addComponent(jScrollPane4)
-                                    .addComponent(cboEstado, 0, 140, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnGuardar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnEliminar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSalir))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(95, 95, 95)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnActualizar)))
+                        .addComponent(btnGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSalir))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(cboTpArt, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel2))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane3)
+                                    .addComponent(jScrollPane4)
+                                    .addComponent(cboEstado, 0, 140, Short.MAX_VALUE))))))
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
                 .addContainerGap())
@@ -208,10 +250,14 @@ public class ArticuloFrm extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                    .addComponent(cboTpArt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -222,18 +268,17 @@ public class ArticuloFrm extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6))
-                                .addGap(25, 25, 25)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnGuardar)
-                                    .addComponent(btnEliminar)
-                                    .addComponent(btnSalir)))
-                            .addComponent(jLabel5)))
+                                    .addComponent(jLabel6)))
+                            .addComponent(jLabel5))
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnEliminar)
+                            .addComponent(btnSalir)))
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnActualizar))
+                .addGap(41, 41, 41))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -244,13 +289,15 @@ public class ArticuloFrm extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
        Articulo art = new Articulo();
        
-       int idTpArticulo=Integer.parseInt(txtid_tpArticulo.getText());
+       int idTpArticulo=cboTpArt.getSelectedIndex() + 1;
+//        JOptionPane.showConfirmDialog(null, "Id es: " + idTpArticulo);
        int cantidad=Integer.parseInt(txtcantidad.getText());
        int precio=Integer.parseInt(txtprecio.getText());
        String estado=cboEstado.getSelectedItem().toString();
        int id =Integer.parseInt(txtIdArticulo.getText());
+       String Nombre=txtNomArt.getText();
        if(id==0){
-            boolean resultado = art.insertarArticulo(id, idTpArticulo, cantidad, precio, estado);
+            boolean resultado = art.insertarArticulo(idTpArticulo, cantidad, precio, estado, Nombre);
             if(resultado==true){
                 JOptionPane.showMessageDialog(null, "Se insertó el artículo!");
                 this.modeloTabla.getDataVector().clear();
@@ -259,7 +306,7 @@ public class ArticuloFrm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No se insertó el artículo");
             }
        }else{
-            boolean resultado = art.actualizarArticulo(id, idTpArticulo, cantidad, precio, estado);
+            boolean resultado = art.actualizarArticulo(id, idTpArticulo, cantidad, precio, estado,Nombre);
             if(resultado==true){
                JOptionPane.showMessageDialog(null, "Se actualizó el artículo!");
                this.modeloTabla.getDataVector().clear();
@@ -270,18 +317,6 @@ public class ArticuloFrm extends javax.swing.JFrame {
            }
       
     }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        Articulo art = new Articulo();
-        boolean resultado = art.actualizarArticulo(Integer.parseInt(txtIdArticulo.getText()), Integer.parseInt(txtid_tpArticulo.getText()), Integer.parseInt(txtcantidad.getText()), Integer.parseInt(txtprecio.getText()), cboEstado.getSelectedItem().toString());
-        if(resultado==true){
-           JOptionPane.showMessageDialog(null, "Se actualizó el artículo!");
-           this.modeloTabla.getDataVector().clear();
-           cargarTabla();
-       }else{
-           JOptionPane.showMessageDialog(null, "No se actualizó el artículo");
-       }
-    }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         Articulo art = new Articulo();
@@ -304,15 +339,23 @@ public class ArticuloFrm extends javax.swing.JFrame {
     private void jtArticuloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtArticuloMouseClicked
         int selection = jtArticulo.getSelectedRow();
         txtIdArticulo.setText(String.valueOf(jtArticulo.getValueAt(selection, 0)));
-        txtid_tpArticulo.setText(String.valueOf(jtArticulo.getValueAt(selection, 1)));
-        txtcantidad.setText(String.valueOf(jtArticulo.getValueAt(selection, 2)));
-        txtprecio.setText(String.valueOf(jtArticulo.getValueAt(selection, 3)));
-        modeloComboEstado.setSelectedItem(String.valueOf(jtArticulo.getValueAt(selection, 4)));
+        //modeloComboTpArt.setSelectedItem(String.valueOf(jtArticulo.getValueAt(selection, 1)));
+                int a= (int)jtArticulo.getValueAt(selection,1);
+                //JOptionPane.showConfirmDialog(null, "Id es: " + a);
+                cargarCboTpArticuloxId(a);
+        txtNomArt.setText(String.valueOf(jtArticulo.getValueAt(selection, 2)));
+        txtcantidad.setText(String.valueOf(jtArticulo.getValueAt(selection, 3)));
+        txtprecio.setText(String.valueOf(jtArticulo.getValueAt(selection, 4)));
+        modeloComboEstado.setSelectedItem(String.valueOf(jtArticulo.getValueAt(selection, 5)));
     }//GEN-LAST:event_jtArticuloMouseClicked
 
     private void cboEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboEstadoActionPerformed
       
     }//GEN-LAST:event_cboEstadoActionPerformed
+
+    private void cboTpArtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTpArtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboTpArtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -350,26 +393,27 @@ public class ArticuloFrm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cboEstado;
+    private javax.swing.JComboBox<String> cboTpArt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jtArticulo;
     private javax.swing.JTextPane txtIdArticulo;
+    private javax.swing.JTextPane txtNomArt;
     private javax.swing.JTextPane txtcantidad;
-    private javax.swing.JTextPane txtid_tpArticulo;
     private javax.swing.JTextPane txtprecio;
     // End of variables declaration//GEN-END:variables
 }

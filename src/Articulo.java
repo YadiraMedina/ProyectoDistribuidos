@@ -11,12 +11,12 @@ public class Articulo extends ArticuloApp.ArticuloPOA{
     Conexion conex = new Conexion();
 
     @Override
-    public boolean insertarArticulo(int id_articulo, int id_tpArticulo, int cantidad, int precio, String estado) {
+    public boolean insertarArticulo(int id_tpArticulo, int cantidad, int precio, String estado, String nombre) {
         
         boolean resultado = false;
         try {
-            String query = "Insert into articulo(id_tpArticulo,cantidad,precio,estado)"
-                    + "values ("+id_tpArticulo+","+cantidad+","+precio+",'"+estado+"')";
+            String query = "Insert into articulo(id_tpArticulo,cantidad,precio,estado,nombre)"
+                    + "values ("+id_tpArticulo+","+cantidad+","+precio+",'"+estado+"','"+nombre+"')";
             conex.conexion();
             Statement st = conex.conex.createStatement();
             int valor = st.executeUpdate(query);
@@ -54,10 +54,10 @@ public class Articulo extends ArticuloApp.ArticuloPOA{
     }
 
     @Override
-    public boolean actualizarArticulo(int id_articulo, int id_tpArticulo, int cantidad, int precio, String estado) {
+    public boolean actualizarArticulo(int id_articulo, int id_tpArticulo, int cantidad, int precio, String estado, String nombre) {
         boolean resultado = false;
         try {
-            String query = "Update articulo set id_tpArticulo="+id_tpArticulo+",cantidad="+cantidad+",precio="+precio+",estado='"+estado+"'"
+            String query = "Update articulo set id_tpArticulo="+id_tpArticulo+",cantidad="+cantidad+",precio="+precio+",estado='"+estado+"',nombre='"+nombre+"'"
                     + " where id_articulo="+id_articulo+"";
             conex.conexion();
             Statement st = conex.conex.createStatement();
@@ -95,10 +95,42 @@ public class Articulo extends ArticuloApp.ArticuloPOA{
         return resultado;
     }
     
+    public ResultSet listaTpArticulo(){
+        ResultSet resultado = null;
+        
+        try {
+            String query = "Select id, nombre from tp_articulo";
+            conex.conexion();
+            Statement st = conex.conex.createStatement();
+            resultado = st.executeQuery(query);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " +e.getMessage());
+        }
+        
+        return resultado;
+    }
+    
+     public ResultSet listaTpArticuloxId(int id){
+        ResultSet resultado = null;
+        //JOptionPane.showConfirmDialog(null, "Id es: " + id);
+        try {
+            String query = "Select id, nombre from tp_articulo where id="+id;
+            conex.conexion();
+            Statement st = conex.conex.createStatement();
+            resultado = st.executeQuery(query);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " +e.getMessage());
+        }
+        
+        return resultado;
+    }
+    
     public ResultSet cargarTablaArticulo(){
         ResultSet resultado = null;
         try {
-            String query = "Select id_articulo, id_tpArticulo, cantidad, precio, estado from articulo";
+            String query = "Select id_articulo, id_tpArticulo, nombre, cantidad, precio, estado from articulo";
             conex.conexion();
             Statement st = conex.conex.createStatement();
             resultado = st.executeQuery(query);
