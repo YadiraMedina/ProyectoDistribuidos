@@ -13,22 +13,7 @@ public class Ventas extends VentasApp.VentasPOA{
     private ORB orb;
     Conexion conex = new Conexion();
 
-        public ResultSet listaArticulos(){
-        ResultSet resultado = null;
-        
-        try {
-            String query = "Select id_articulo, nombre from articulo";
-            conex.conexion();
-            Statement st = conex.conex.createStatement();
-            resultado = st.executeQuery(query);
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocurrio un error: " +e.getMessage());
-        }
-        
-        return resultado;
-    }
-    
+       
     @Override
     public boolean insertarVentas( int id_cliente, int cantidad_total, int valor_total) {
         
@@ -37,11 +22,11 @@ public class Ventas extends VentasApp.VentasPOA{
         int Anio =fecha.getYear()+1900;
         int Mes =fecha.getMonth();
         int Dia =fecha.getDate();
-        String fechaActual = Dia + "-" + (Mes + 1) +"-" + Anio;
+        String fechaActual = Anio + "-" + (Mes + 1) +"-" + Dia;
         //SimpleDateFormat fecha= new SimpleDateFormat("dd-MM-yy");
          //Date date = fecha.parse("31-03-2016");
          
-        JOptionPane.showConfirmDialog(null, "Id es: " + fechaActual);
+        //JOptionPane.showConfirmDialog(null, "Id es: " + fechaActual);
         try {
             String query = "Insert into ventas(id_cliente,fecha,cantidad_total,valor_total)"
                     + "values ("+id_cliente+",'"+fechaActual+"',"+cantidad_total+","+valor_total+")";
@@ -87,8 +72,12 @@ public class Ventas extends VentasApp.VentasPOA{
         
         boolean resultado = false;
         Date fecha =new Date();
+        int Anio =fecha.getYear()+1900;
+        int Mes =fecha.getMonth();
+        int Dia =fecha.getDate();
+        String fechaActual = Anio + "-" + (Mes + 1) +"-" + Dia;
         try {
-            String query = "Update ventas set id_cliente="+id_cliente+",fecha='"+fecha+"',cantidad_total="+cantidad_total+",valor_total="+valor_total+""
+            String query = "Update ventas set id_cliente="+id_cliente+",fecha='"+fechaActual+"',cantidad_total="+cantidad_total+",valor_total="+valor_total+""
                     + " where id_ventas="+id_ventas+"";
             conex.conexion();
             Statement st = conex.conex.createStatement();
@@ -122,6 +111,54 @@ public class Ventas extends VentasApp.VentasPOA{
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ocurrio un error " + e.getMessage());
         }
+        return resultado;
+    }
+    
+    public ResultSet listaArticulos(){
+        ResultSet resultado = null;
+        
+        try {
+            String query = "Select id_articulo, nombre from articulo";
+            conex.conexion();
+            Statement st = conex.conex.createStatement();
+            resultado = st.executeQuery(query);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " +e.getMessage());
+        }
+        
+        return resultado;
+    }
+   
+    public ResultSet listaClientes(){
+        ResultSet resultado = null;
+        
+        try {
+            String query = "Select id_cliente as id, identificacion, nombre from cliente";
+            conex.conexion();
+            Statement st = conex.conex.createStatement();
+            resultado = st.executeQuery(query);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " +e.getMessage());
+        }
+        
+        return resultado;
+    }
+    
+    public ResultSet listaClientexId(int id){
+        ResultSet resultado = null;
+        //JOptionPane.showConfirmDialog(null, "Id es: " + id);
+        try {
+            String query = "Select id_cliente as id, nombre, identificacion from cliente where id_cliente="+id;
+            conex.conexion();
+            Statement st = conex.conex.createStatement();
+            resultado = st.executeQuery(query);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " +e.getMessage());
+        }
+        
         return resultado;
     }
 

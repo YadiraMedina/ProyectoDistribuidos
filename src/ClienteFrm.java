@@ -23,7 +23,7 @@ public class ClienteFrm extends javax.swing.JFrame {
         initComponents();
         cargarTabla();
 
-        Cliente objCliente = new Cliente();
+        //Cliente objCliente = new Cliente();
 
     }
 
