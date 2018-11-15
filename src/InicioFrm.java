@@ -22,6 +22,7 @@ public class InicioFrm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        BtnClientes = new javax.swing.JButton();
         BtnVentas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -54,6 +55,16 @@ public class InicioFrm extends javax.swing.JFrame {
             }
         });
 
+        BtnClientes.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        BtnClientes.setText("CLIENTES");
+        BtnClientes.setToolTipText("");
+        BtnClientes.setActionCommand("CLIENTES");
+        BtnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnClientesActionPerformed(evt);
+            }
+        });
+
         BtnVentas.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         BtnVentas.setText("VENTAS");
         BtnVentas.addActionListener(new java.awt.event.ActionListener() {
@@ -78,9 +89,14 @@ public class InicioFrm extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
                         .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnVentas)))
-                .addContainerGap(177, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BtnClientes)))
+                .addContainerGap(167, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(20, 20, 20)
+                    .addComponent(BtnVentas)
+                    .addContainerGap(694, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,8 +108,13 @@ public class InicioFrm extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BtnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(124, 124, 124))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(142, Short.MAX_VALUE)
+                    .addComponent(BtnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(47, 47, 47)))
         );
 
         pack();
@@ -117,12 +138,17 @@ public class InicioFrm extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void BtnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClientesActionPerformed
+        ClienteFrm verFormularioCliente = new ClienteFrm();
+        verFormularioCliente.setVisible(true);
+        this.setVisible(false); 
+               
+    }//GEN-LAST:event_BtnClientesActionPerformed
+
     private void BtnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVentasActionPerformed
-        
-        VentasFrm verFormularioVentas = new VentasFrm();
+         VentasFrm verFormularioVentas = new VentasFrm();
         verFormularioVentas.setVisible(true);
         this.setVisible(false);
-        
     }//GEN-LAST:event_BtnVentasActionPerformed
 
     /**
@@ -162,6 +188,7 @@ public class InicioFrm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnClientes;
     private javax.swing.JButton BtnVentas;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

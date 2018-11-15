@@ -314,7 +314,7 @@ public class ArticuloFrm extends javax.swing.JFrame {
            }else{
                JOptionPane.showMessageDialog(null, "No se actualizó el artículo");
            }
-           }
+       }
       
     }//GEN-LAST:event_btnGuardarActionPerformed
 

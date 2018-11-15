@@ -1,0 +1,9 @@
+module ClienteApp{
+    interface Cliente{
+        boolean insertarCliente(in long identificacion, in wstring nombre, in wstring telefono);
+        boolean eliminarCliente(in long id_cliente);
+        boolean actualizarCliente(in long id_cliente, in long identificacion, in wstring nombre, in wstring telefono);
+        oneway void shutdown();
+    };
+
+};
