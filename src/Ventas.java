@@ -5,8 +5,6 @@ import javax.swing.JOptionPane;
 import org.omg.CORBA.ORB;
 
 import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 public class Ventas extends VentasApp.VentasPOA{
     
@@ -151,6 +149,38 @@ public class Ventas extends VentasApp.VentasPOA{
         //JOptionPane.showConfirmDialog(null, "Id es: " + id);
         try {
             String query = "Select id_cliente as id, nombre, identificacion from cliente where id_cliente="+id;
+            conex.conexion();
+            Statement st = conex.conex.createStatement();
+            resultado = st.executeQuery(query);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " +e.getMessage());
+        }
+        
+        return resultado;
+    }
+    
+     public ResultSet listaArticulosxId(int id){
+        ResultSet resultado = null;
+        //JOptionPane.showConfirmDialog(null, "Id es: " + id);
+        try {
+            String query = "Select id_articulo as id, id_tpArticulo,cantidad,precio,estado,nombre from articulo where id_articulo="+id;
+            conex.conexion();
+            Statement st = conex.conex.createStatement();
+            resultado = st.executeQuery(query);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " +e.getMessage());
+        }
+        
+        return resultado;
+    }
+
+     public ResultSet consultarIdVenta(){
+        ResultSet resultado = null;
+        //JOptionPane.showConfirmDialog(null, "Id es: " + id);
+        try {
+            String query = "Select max(id_ventas) as id from ventas";
             conex.conexion();
             Statement st = conex.conex.createStatement();
             resultado = st.executeQuery(query);
