@@ -1,0 +1,10 @@
+module DetalleVentasApp{
+    interface DetalleVentas{
+        boolean insertarDetalleVentas(in long id_venta, in long id_articulo, in long cantidad, in long valor_unitario);
+        boolean eliminarDetalleVentas(in long id_detalle);
+        boolean actualizarDetalleVentas(in long id_detalle,in long id_venta, in long id_articulo, in long cantidad, in long valor_unitario);
+        oneway void shutdown();
+    };
+
+};
+
